@@ -1,15 +1,19 @@
 const express = require('express');
-const Author = require('./models/Author');
+const bodyParser = require('body-parser');
+
+const recipesRouters = require('./routers/recipesRouters');
 
 require('dotenv').config();
 
 const PORT = process.env.PORT || 3000;
 const app = express();
 
-app.get('/authors', async (_req, res) => {
-  const authors = await Author.getAll();
+app.use(bodyParser.json());
 
-  res.status(200).json(authors);
+app.use('/recipes', recipesRouters);
+
+app.all('*', (req, res) => {
+  return res.status(404).json({ message: `Rota ${req.path} não existe.` });
 });
 
-app.listen(PORT, () => console.log(`Listening on port ${PORT}`))
+app.listen(PORT, () => console.log(`Listening on port ${PORT}`));

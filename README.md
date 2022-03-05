@@ -7,23 +7,34 @@ create database if not exists msc_example;
 
 use msc_example;
 
-create table authors
+create table recipes
 (
-	id int not null auto_increment,
-    first_name varchar(30) not null,
-    middle_name varchar(30),
-    last_name varchar(30) not null,
-    birthday date,
-    nationality varchar(100),
+    id int not null auto_increment,
+    name varchar(100) not null,
+    price float not null,
+    wait_time int not null,
     primary key(id)
 );
 
-insert into authors (first_name, middle_name, last_name, birthday, nationality)
+insert into recipes (name, price, wait_time)
 
 values
-	('George','R. R.','Martin','1948-09-20','norte-americano'),
-    ('J.','R. R.','Tolkien','1892-01-03','britânico'),
-    ('Isaac',NULL,'Asimov','1920-01-20','russo-americano'),
-    ('Frank',NULL,'Herbert','1920-02-11','norte-americano'),
-    ('Júlio',NULL,'Verne','1905-03-24','francês');
+	('Lasanha', 40.0, 30),
+    ('Macarrão a Bolonhesa, 35.0, 25),
+    ('Macarrão com molho branco', 37.0, 25);
+
+create table drinks
+(
+    id int not null auto_increment,
+    name varchar(100) not null,
+    price float not null,
+    primary key(id)
+);
+
+insert into drinks (name, price)
+
+values
+    ('Refri em lata', 5.0),
+    ('Refri 600ml', 8.0),
+    ('Suco 300ml', 4.0)
 ```
