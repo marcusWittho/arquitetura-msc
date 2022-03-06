@@ -1,5 +1,5 @@
 const {
-  getAll,
+  getAll, getByName,
 } = require('../models/Recipes');
 
 const serialize = (itemData) => {
@@ -21,6 +21,17 @@ const getAllServices = async () => {
   return items;
 }
 
+const getByNameServices = async (name) => {
+  const recipe = await getByName(name);
+
+  if (recipe.length === 0) return [];
+
+  const items = recipe.map((item) => serialize(item));
+
+  return items;
+}
+
 module.exports = {
   getAllServices,
+  getByNameServices,
 };

@@ -8,6 +8,15 @@ const getAll = async () => {
   return recipes;
 }
 
+const getByName = async (name) => {
+  const [ recipes ] = await connection.execute(
+    `SELECT * FROM recipes WHERE name=${name}`
+  );
+
+  return recipes;
+}
+
 module.exports = {
   getAll,
+  getByName,
 };

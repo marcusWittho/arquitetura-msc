@@ -7,6 +7,20 @@ create database if not exists msc_example;
 
 use msc_example;
 
+create table users
+(
+	id int not null auto_increment,
+    name varchar(50) not null,
+    password varchar(100) not null,
+    primary key(id)
+);
+
+insert into users (name, password)
+
+values
+	('user1', '1234'),
+    ('user2', '5678');
+
 create table recipes
 (
     id int not null auto_increment,
