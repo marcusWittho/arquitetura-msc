@@ -10,7 +10,7 @@ const getAll = async () => {
 
 const getByName = async (name) => {
   const [ recipes ] = await connection.execute(
-    `SELECT * FROM recipes WHERE name=${name}`
+    `SELECT * FROM recipes WHERE name LIKE '%${name}%'`
   );
 
   return recipes;
