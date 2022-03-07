@@ -1,41 +1,26 @@
-const validateQueryName = (req, _res, next) => {
+const validateQueryName = (req, res, next) => {
   const { name } = req.query;
 
-  if (!name || name === '') {
-    next({
-      status: 400,
-      code: "Erro (validate query name)",
-      message: "Dados inválidos."
-    });
-  }
+  if (!name) return res.status(400)
+    .json({ message: "Dados inválidos. (Validate query name)" });
 
   next();
 }
 
-const validateBodyName = (req, _res, next) => {
+const validateBodyName = (req, res, next) => {
   const { name } = req.body;
 
-  if (!name || name === '') {
-    next({
-      status: 400,
-      code: "Erro (validate body name)",
-      message: "Dados inválidos."
-    });
-  }
+  if (!name || name === '') return res.status(400)
+    .json({ message: "Dados inválidos. (Validate body name)" });
 
   next();
 }
 
-const validatePrice = (req, _res, next) => {
+const validatePrice = (req, res, next) => {
   const { price } = req.body;
 
-  if (!price || typeof price !== 'number' || price < 0) {
-    next({
-      status: 400,
-      code: "Erro (validate price)",
-      message: "Dados inválidos."
-    });
-  }
+  if (!price || typeof price !== 'number' || price < 0) return res.status(400)
+    .json({ message: "Dados inválidos. (Validate price)" });
 
   next();
 }

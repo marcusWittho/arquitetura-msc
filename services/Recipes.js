@@ -24,7 +24,11 @@ const getAllServices = async () => {
 const getByNameServices = async (name) => {
   const recipe = await getByName(name);
 
-  if (recipe.length === 0) return [];
+  if (recipe.length === 0) return {
+      status: 404,
+      code: "Erro - recipe by name",
+      message: "Nenhuma receita encontrada."
+    };
 
   const items = recipe.map((item) => serialize(item));
 
