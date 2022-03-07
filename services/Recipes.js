@@ -1,5 +1,5 @@
 const {
-  getAll, getByName,
+  getAll, getByName, getById,
 } = require('../models/Recipes');
 
 const serialize = (itemData) => {
@@ -35,7 +35,20 @@ const getByNameServices = async (name) => {
   return items;
 }
 
+const getByIdServices = async (id) => {
+  const recipe = await getById(id);
+
+  if (recipe.length === 0) return {
+    status: 404,
+    code: "Erro - recipe by id",
+    message: "Nenhuma receita encontrada."
+  };
+
+  return recipe;
+}
+
 module.exports = {
   getAllServices,
   getByNameServices,
+  getByIdServices
 };

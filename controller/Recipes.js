@@ -1,7 +1,9 @@
 const rescue = require('express-rescue');
 
 const {
-  getAllServices, getByNameServices,
+  getAllServices,
+  getByNameServices,
+  getByIdServices
 } = require('../services/Recipes');
 
 const allRecipes = async (_req, res) => {
@@ -22,7 +24,17 @@ const recipeByName = rescue(async (req, res, next) => {
   res.status(200).json({ recipe });
 })
 
+const recipeById = rescue(async (req, res, next) => {
+  const { id } = req.params;
+  const recipe = await getByIdServices(id);
+
+  if (recipe.status === 404) return next(recipe);
+
+  res.status(200).json({ recipe });
+})
+
 module.exports = {
   allRecipes,
   recipeByName,
+  recipeById
 };

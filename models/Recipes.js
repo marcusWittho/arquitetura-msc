@@ -16,7 +16,16 @@ const getByName = async (name) => {
   return recipes;
 }
 
+const getById = async (id) => {
+  const [ recipe ] = await connection.execute(
+    `SELECT * FROM recipes WHERE id=${id}`
+  );
+
+  return recipe;
+}
+
 module.exports = {
   getAll,
   getByName,
+  getById
 };
