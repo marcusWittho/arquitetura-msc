@@ -3,7 +3,8 @@ const rescue = require('express-rescue');
 const {
   getAllServices,
   getByNameServices,
-  getByIdServices
+  getByIdServices,
+  addRecipeServices,
 } = require('../services/Recipes');
 
 const allRecipes = async (_req, res) => {
@@ -33,8 +34,19 @@ const recipeById = rescue(async (req, res, next) => {
   res.status(200).json({ recipe });
 })
 
+const addRecipe = rescue(async (req, res, next) => {
+  const { name, price, waitTime } = req.body;
+
+  const recipe = await addRecipeServices(name, price, waitTime);
+
+  if (recipe.status === 500) return next(recipe);
+
+  res.status(recipe.status).json({ message: recipe.message });
+})
+
 module.exports = {
   allRecipes,
   recipeByName,
-  recipeById
+  recipeById,
+  addRecipe,
 };

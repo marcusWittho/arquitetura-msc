@@ -24,8 +24,22 @@ const getById = async (id) => {
   return recipe;
 }
 
+const addRecipe = async (name, price, waitTime) => {
+  const [ recipe ] = await connection.execute(
+    `INSERT INTO recipes (name, price, wait_time)
+    VALUES ("${name}", ${price}, ${waitTime});`
+  );
+
+  return {
+    status: 201,
+    code: "Sucesso - Receita adicionada.",
+    message: "Receita adicionada com sucesso."
+  };
+}
+
 module.exports = {
   getAll,
   getByName,
-  getById
+  getById,
+  addRecipe,
 };
