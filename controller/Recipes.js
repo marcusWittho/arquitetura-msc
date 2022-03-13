@@ -5,6 +5,7 @@ const {
   getByNameServices,
   getByIdServices,
   addRecipeServices,
+  updateRecipeServices,
 } = require('../services/Recipes');
 
 const allRecipes = async (_req, res) => {
@@ -44,9 +45,21 @@ const addRecipe = rescue(async (req, res, next) => {
   res.status(recipe.status).json({ message: recipe.message });
 })
 
+const updateRecipe = rescue(async (req, res, next) => {
+  const { name, price, waitTime } = req.body;
+  const { id } = req.params;
+
+  const recipe = await updateRecipeServices(id, name, price, waitTime);
+
+  if (recipe.status === 500) return next(recipe);
+
+  res.status(recipe.status).json({ message: recipe.message });
+})
+
 module.exports = {
   allRecipes,
   recipeByName,
   recipeById,
   addRecipe,
+  updateRecipe,
 };

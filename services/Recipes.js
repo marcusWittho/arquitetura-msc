@@ -3,6 +3,7 @@ const {
   getByName,
   getById,
   addRecipe,
+  updateRecipe,
 } = require('../models/Recipes');
 
 const serialize = (itemData) => {
@@ -62,9 +63,22 @@ const addRecipeServices = async (name, price, waitTime) => {
   return recipe;
 }
 
+const updateRecipeServices = async (id, name, price, waitTime) => {
+  const recipe = await updateRecipe(id, name, price, waitTime);
+
+  if (recipe.status !== 201) return {
+    status: 500,
+    code: "Erro - update recipe",
+    message: "A receita não foi atualizada."
+  };
+
+  return recipe;
+}
+
 module.exports = {
   getAllServices,
   getByNameServices,
   getByIdServices,
   addRecipeServices,
+  updateRecipeServices,
 };
