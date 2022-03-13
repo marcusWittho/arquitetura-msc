@@ -1,5 +1,7 @@
 # Projeto desenvolvido para aplicar os conhecimentos adiquiridos sobre Node, Express e Arquitetura MSC.
 
+Em desenvolvimento :)
+
 ###   Para este projeto o banco de dados utilizado foi o MySQL, com a seguinte configuração inicial:
 
 ```
