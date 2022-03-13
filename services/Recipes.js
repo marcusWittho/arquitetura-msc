@@ -4,6 +4,7 @@ const {
   getById,
   addRecipe,
   updateRecipe,
+  deleteRecipe,
 } = require('../models/Recipes');
 
 const serialize = (itemData) => {
@@ -75,10 +76,28 @@ const updateRecipeServices = async (id, name, price, waitTime) => {
   return recipe;
 }
 
+const deleteRecipeServices = async (id) => {
+  await deleteRecipe(id);
+  const recipe = await getById(id);
+
+  if (recipe.length !== 0) return {
+    status: 500,
+    code: "Erro - delete recipe",
+    message: "A receita não foi deletada."
+  }
+
+  return {
+    status: 201,
+    code: "Sucesso - receita deletada",
+    message: "A receita foi deletada com sucesso."
+  }
+}
+
 module.exports = {
   getAllServices,
   getByNameServices,
   getByIdServices,
   addRecipeServices,
   updateRecipeServices,
+  deleteRecipeServices
 };

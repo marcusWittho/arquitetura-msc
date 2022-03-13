@@ -51,10 +51,24 @@ const updateRecipe = async (id, name, price, waitTime) => {
   };
 }
 
+const deleteRecipe = async (id) => {
+  await connection.execute(
+    `DELETE FROM recipes
+    WHERE id=${id}`
+  );
+
+  return {
+    status: 201,
+    code: "Sucesso - Receita deletada",
+    message: "Receita deletada com sucesso."
+  };
+}
+
 module.exports = {
   getAll,
   getByName,
   getById,
   addRecipe,
   updateRecipe,
+  deleteRecipe
 };

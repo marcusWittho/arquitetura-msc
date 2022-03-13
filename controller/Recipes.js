@@ -6,6 +6,7 @@ const {
   getByIdServices,
   addRecipeServices,
   updateRecipeServices,
+  deleteRecipeServices,
 } = require('../services/Recipes');
 
 const allRecipes = async (_req, res) => {
@@ -56,10 +57,21 @@ const updateRecipe = rescue(async (req, res, next) => {
   res.status(recipe.status).json({ message: recipe.message });
 })
 
+const deleteRecipe = rescue(async (req, res, next) => {
+  const { id } = req.params;
+
+  const recipe = await deleteRecipeServices(id);
+
+  if (recipe.status === 500) return next(recipe);
+
+  res.status(recipe.status).json({ message: recipe.message });
+})
+
 module.exports = {
   allRecipes,
   recipeByName,
   recipeById,
   addRecipe,
   updateRecipe,
+  deleteRecipe
 };
